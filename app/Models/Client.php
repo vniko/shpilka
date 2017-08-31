@@ -6,6 +6,7 @@ use Skvn\Crud\Models\CrudModel;
 
 class Client extends CrudModel
 {
+    public $timestamps = true;
     protected $fillable = [
         'name',
         'dob',
@@ -25,5 +26,27 @@ class Client extends CrudModel
         } else {
             return '';
         }
+    }
+
+    /**
+     * Create client model by data
+     * @param $clientInfo
+     * @return $this|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null|static|static[]
+     */
+    public static function createByData($clientInfo)
+    {
+        if (!empty($clientInfo['dob'])) {
+            $clientInfo['dob'] = date('Y-m-d', strtotime($clientInfo['dob']));
+        }
+
+        if (!empty($clientInfo['id'])) {
+            $client = self::find($clientInfo['id']);;
+            $client->fill($clientInfo);
+            $client->save();
+        } else {
+            $client = self::create($clientInfo);
+        }
+
+        return $client;
     }
 }
