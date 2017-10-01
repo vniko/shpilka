@@ -25,7 +25,9 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $cats = Category::with('products')
+        $cats = Category::with(['products' => function ($query) {
+                                    $query->orderBy('sort_order');
+                                }])
                 ->orderBy('sort_order')
                     ->get();
 

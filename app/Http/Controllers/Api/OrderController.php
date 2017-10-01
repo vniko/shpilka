@@ -8,6 +8,7 @@ use App\Models\Client;
 use App\Models\Department;
 use App\Models\Master;
 use App\Models\Order;
+use App\Transformers\OrderListTransformer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -26,6 +27,11 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
+        $filters = $request->get('filters');
+        $orders = Order::filter($filters)
+                        ->with('client')
+                            ->get();
+        return fractal($orders, new OrderListTransformer())->respond();
 
     }
 
@@ -95,6 +101,7 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
+        return ['success' => Order::find($id)->delete()];
 
     }
 

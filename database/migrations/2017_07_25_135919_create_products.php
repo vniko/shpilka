@@ -28,15 +28,16 @@ class CreateProducts extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('icon_class');
-            $table->string('block_class');
+            $table->string('product_class');
             $table->integer('parent_id');
             $table->integer('sort_order')->default(100);
         });
 
         Schema::create('abonement', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
+            $table->integer('client_id');
             $table->integer('product_id');
+            $table->integer('order_line_id');
             $table->integer('order_id');
             $table->integer('visits')->default(0);
             $table->integer('visits_left')->default(0);

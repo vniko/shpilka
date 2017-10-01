@@ -2,10 +2,15 @@
 
 namespace App\Models;
 
+use App\Traits\Filterable;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Skvn\Crud\Models\CrudModel;
 
 class Order extends CrudModel
 {
+    use SoftDeletes, Filterable;
+
     public $timestamps  = true;
     protected $guarded = [
         'id',
@@ -33,5 +38,14 @@ class Order extends CrudModel
         }
 
         return $order;
+    }
+
+    public function scopeFilterByDate($query, $date)
+    {
+        if (!empty($date)) {
+            $query->whereDate('created_at', Carbon::parse($date));
+        }
+        return $query;
+
     }
 }

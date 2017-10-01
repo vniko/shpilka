@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Skvn\Crud\Models\CrudModel;
 
 class Client extends CrudModel
 {
+    use SoftDeletes;
+
     public $timestamps = true;
     protected $fillable = [
         'name',
