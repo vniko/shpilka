@@ -21,11 +21,7 @@ class Department extends CrudModel
         $period = new \DatePeriod($dateStart, $interval, $dateEnd);
 
         if (!$this->use_masters) {
-            $slots = Schedule::whereDepartmentId($this->id)
-                ->select('week_day', 'time')
-                    ->get()
-                        ->groupBy('week_day')
-                            ->toArray();
+            $slots = Schedule::getForDepartment($this);
         }
         //FIXME add days off
 
