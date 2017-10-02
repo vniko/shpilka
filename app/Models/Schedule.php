@@ -33,12 +33,14 @@ class Schedule extends CrudModel
                 break;
         }
         $hours = [];
-        $startDate = Carbon::parse($config['start_time']);
-        $endDate = Carbon::parse($config['end_time']);
-        $interval = new \DateInterval($config['interval']);
-        while ($startDate < $endDate) {
-            $hours[] = $startDate->format('H:i');
-            $startDate->add($interval);
+        if (!empty($config['start_time']) && !empty($config['end_time'])) {
+            $startDate = Carbon::parse($config['start_time']);
+            $endDate = Carbon::parse($config['end_time']);
+            $interval = new \DateInterval($config['interval']);
+            while ($startDate < $endDate) {
+                $hours[] = $startDate->format('H:i');
+                $startDate->add($interval);
+            }
         }
         $return = [];
         foreach ($days as $d) {
