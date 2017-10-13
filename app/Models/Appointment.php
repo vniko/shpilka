@@ -28,11 +28,9 @@ class Appointment extends CrudModel
             $visitDate,
             $depId);
         $occupied = $apps->groupBy('visit_time')->toArray();
-        $slots = Schedule::whereDepartmentId($depId)
-                        ->whereWeekDay(date('w', strtotime($visitDate)))
-                            ->select('time')
-                                ->get()
-                                    ->toArray();
+        $department = Department::find($depId);
+        $weekday = date('w', strtotime($visitDate));
+        $slots = Schedule::getForDepartment($department)[$weekday];
         $ret = [];
         foreach ($slots as $slot) {
             if (!empty($occupied[$slot['time']])) {
