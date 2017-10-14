@@ -37,7 +37,7 @@ class Department extends CrudModel
         foreach ($dates as $vdate => $timeSlots) {
             //get appointments
             $apps = Appointment::where('visit_date', $vdate)
-                    ->select('visit_time', \DB::raw('count(*) as total'))
+                    ->select('visit_time', \DB::raw('sum(adults + kidsAfter7) as total'))
                         ->groupBy('visit_time')
                             ->get()
                                 ->keyBy('visit_time')

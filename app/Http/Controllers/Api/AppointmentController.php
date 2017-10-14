@@ -80,6 +80,8 @@ class AppointmentController extends Controller
         $app->master_id = $request->get('masterId');
         $app->comment = $request->get('visit_comment');
         $app->kids = $request->kids;
+        $app->kidsAfter7 = $request->kidsAfter7;
+        $app->adults = $request->adults;
         $app->status = Appointment::STATUS_CREATED_OPERATOR;
         $app->save();
 
