@@ -721,12 +721,12 @@ body > :first-child {
   color: currentColor;
   display: block;
   font: inherit;
-  height: 3.625rem;
-  line-height: 3.625rem;
+  height: 2.625rem;
+  line-height: 2.625rem;
   margin: 0 auto;
   padding: 0;
   position: relative;
-  width: 3.625rem;
+  width: 2.625rem;
 }
 
 .c-booking .b-calendar .b-date_selector .date button.is-active,
