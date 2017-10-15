@@ -21,6 +21,8 @@ Route::group(['namespace' => 'Api', 'middleware' => 'api'], function () {
 });
 
 Route::group(['middleware' => 'jwt.auth', 'namespace'=> 'Api'],function () {
+    Route::get('/auth/getUser', 'AuthController@getUser');
+
     Route::resource('appointments', 'AppointmentController');
 
     Route::get('clients/search', 'ClientController@search');
@@ -34,6 +36,8 @@ Route::group(['middleware' => 'jwt.auth', 'namespace'=> 'Api'],function () {
     Route::resource('orders', 'OrderController');
 
     Route::resource('products', 'ProductController');
+
+    Route::resource('worklogs', 'WorklogController');
 
 //Route::post('departments', 'DepartmentController@create');
 //Route::put('departments/{id}', 'DepartmentController@update');

@@ -55,13 +55,13 @@ class DepartmentController extends Controller
      *    }
      * }
      */
-    public function availableDates($id)
+    public function availableDates($id, $date=null)
     {
         $dep = Department::with('masters')->find($id);
         return response()->json([
             'data' =>
                 [
-                    'dates' => $dep->getAvailableDates(),
+                    'dates' => $dep->getAvailableDates($date),
                     'department' => $dep
                 ]
         ], 200);

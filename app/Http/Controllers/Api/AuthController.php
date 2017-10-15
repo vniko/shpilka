@@ -52,4 +52,8 @@ class AuthController extends Controller
         JWTAuth::invalidate(JWTAuth::getToken());
         return response()->json(['success' => true, 'data' => [], 'message' => 'User logged out successfully'], 200);
     }
+
+    public function getUser(){
+        return response()->json(['success' => true, 'data' => Auth::user()], 200);
+    }
 }
