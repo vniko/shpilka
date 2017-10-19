@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\Filterable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Skvn\Crud\Models\CrudModel;
 
 class Client extends CrudModel
 {
-    use SoftDeletes;
+    use SoftDeletes, Filterable;
 
     public $timestamps = true;
     protected $fillable = [
@@ -16,7 +17,11 @@ class Client extends CrudModel
         'lead_source',
         'phone',
         'comment',
-        'email'
+        'email',
+        'kids',
+        'adults',
+        'kidsAfter7'
+
     ];
 
     public function getDobAttribute($value)

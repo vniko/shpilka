@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Api;
 use App\Models\Client;
 use App\Models\Department;
 use App\Models\Master;
+use App\Transformers\ClientTransformer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 
 /**
  * @apiDefine grpClient Client
@@ -15,6 +17,20 @@ use App\Http\Controllers\Controller;
 
 class ClientController extends Controller
 {
+
+    public function index(Request $request)
+    {
+        $filters = $request->get('filters');
+
+        $clientsPaginator = Client::filter($filters)
+                                ->orderBy('name')
+                                    ->paginate(50);
+        return fractal()
+                ->collection($clientsPaginator->getCollection())
+                    ->transformWith(new ClientTransformer())
+                        ->paginateWith(new IlluminatePaginatorAdapter($clientsPaginator))
+                            ->respond();
+    }
 
     /**
      * @api {get} /clients/search/?q=:query GetSearchClients

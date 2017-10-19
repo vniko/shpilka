@@ -25,6 +25,8 @@ Route::group(['middleware' => 'jwt.auth', 'namespace'=> 'Api'],function () {
 
     Route::resource('appointments', 'AppointmentController');
 
+    Route::resource('clients', 'ClientController')->only(['index']);
+
     Route::get('clients/search', 'ClientController@search');
 
     Route::get('departments/dates/{id}/{date?}', 'DepartmentController@availableDates');

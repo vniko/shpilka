@@ -9,6 +9,9 @@ trait Filterable
 {
     public function scopeFilter(Builder $query, $filters = [])
     {
+        if (!$filters) {
+            return $query;
+        }
         if (is_string($filters)) {
             $filters = json_decode($filters, true);
         }
