@@ -79,6 +79,7 @@ class AppointmentController extends Controller
         $app->department_id = $request->get('departmentId');
         $app->master_id = $request->get('masterId');
         $app->comment = $request->get('visitComment');
+        $app->is_free = (int)$request->get('is_free');
         $app->kids = $request->kids;
         $app->kidsAfter7 = $request->kidsAfter7;
         $app->adults = $request->adults;
