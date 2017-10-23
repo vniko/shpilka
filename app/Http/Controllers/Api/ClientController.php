@@ -77,9 +77,10 @@ class ClientController extends Controller
     public function destroy($id)
     {
         $client = Client::find($id);
+        $client->deleted_at = time();
         return response()->json(
             [
-                'success' => $client->delete()
+                'success' => $client->save()
             ], 200);
     }
 }
