@@ -35,5 +35,11 @@
             "title" => "клиент",
             "model" => "client",
         ],
+        "lines" => [
+            "relation" => "hasMany",
+            "field" => "order_id",
+            "title" => "позиция",
+            "model" => "order_line",
+        ],
     ]
 ];

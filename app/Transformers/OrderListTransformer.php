@@ -3,14 +3,16 @@
 namespace App\Transformers;
 
 use App\Models\Order;
+use function foo\func;
 use League\Fractal\TransformerAbstract;
 
 
 class OrderListTransformer extends TransformerAbstract
 {
     protected $availableIncludes = [
-        'client',
+        'client', 'lines'
     ];
+    protected $defaultIncludes = ['lines'];
 
     public function transform(Order $order)
     {
@@ -22,5 +24,15 @@ class OrderListTransformer extends TransformerAbstract
             'is_deleted' => $order->deleted_at ? true : false,
         ];
 
+    }
+
+    public function includeLines(Order $order)
+    {
+        return $this->collection($order->lines, function($line) {
+            $arr =  $line->toArray();
+            $arr['product'] = $line->product->toArray();
+            $arr['category'] = $line->product->category->toArray();
+            return $arr;
+        });
     }
 }

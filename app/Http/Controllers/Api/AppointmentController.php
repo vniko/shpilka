@@ -121,7 +121,13 @@ class AppointmentController extends Controller
     public function update(Request $request, $id)
     {
         $appt = Appointment::find($id);
-        $appt->fill($request->all());
+        if ($request->has('client')) {
+            $clientInfo = $request->get('client');
+            $client = Client::find($clientInfo['id']);
+            $client->fill($clientInfo);
+            $client->save();
+        }
+        $appt->fill($request->except('client'));
         if ($appt->save()) {
 
             return response()->json(

@@ -55,11 +55,22 @@ class ClientController extends Controller
     public function search(Request $request) {
         $query = $request->get('q');
         if (!empty($query)) {
+            if (mb_strlen($query, 'UTF-8')>3) {
+                $query = mb_substr($query,1, null, 'UTF-8');
+            }
             $clients = Client::where('name', 'like', '%'.$query.'%')
                     ->orWhere('phone', 'like',  '%'.$query.'%')
                         ->get();
             return response()->json($clients, 200);
         }
 
+    }
+
+    public function update(Request $request)
+    {
+        $client = Client::find($request->get('id'));
+        $client->fill($request->all());
+        $client->save();
+        return $client;
     }
 }
