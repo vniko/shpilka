@@ -25,7 +25,7 @@ Route::group(['middleware' => 'jwt.auth', 'namespace'=> 'Api'],function () {
 
     Route::resource('appointments', 'AppointmentController');
 
-    Route::resource('clients', 'ClientController')->only(['index', 'update']);
+    Route::resource('clients', 'ClientController')->only(['index', 'update', 'destroy']);
 
     Route::get('clients/search', 'ClientController@search');
 

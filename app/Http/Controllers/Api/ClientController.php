@@ -73,4 +73,13 @@ class ClientController extends Controller
         $client->save();
         return $client;
     }
+
+    public function destroy($id)
+    {
+        $client = Client::find($id);
+        return response()->json(
+            [
+                'success' => $client->delete()
+            ], 200);
+    }
 }
