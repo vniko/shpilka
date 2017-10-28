@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Api;
 
+use App\Models\Appointment;
 use App\Models\Client;
 use App\Models\Department;
 use App\Models\Master;
@@ -78,6 +79,7 @@ class ClientController extends Controller
     {
         $client = Client::find($id);
         $client->deleted_at = new \DateTime();
+        $client->appointments()->delete();
         return response()->json(
             [
                 'success' => $client->save()

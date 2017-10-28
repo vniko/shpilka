@@ -14,6 +14,7 @@ class Appointment extends CrudModel
     public $timestamps = true;
     protected $guarded = ['id', 'status'];
 
+
     public static function getForDate($date, $departmentId)
     {
         return self::with('client')->whereVisitDate($date)

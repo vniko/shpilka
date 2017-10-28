@@ -123,11 +123,18 @@ class AppointmentController extends Controller
         $appt = Appointment::find($id);
         if ($request->has('client')) {
             $clientInfo = $request->get('client');
+            $clientInfo['kids'] = (int)$clientInfo['kids'];
+            $clientInfo['kidsAfter7'] = (int)$clientInfo['kidsAfter7'];
+            $clientInfo['adults'] = (int)$clientInfo['adults'];
             $client = Client::find($clientInfo['id']);
             $client->fill($clientInfo);
             $client->save();
         }
-        $appt->fill($request->except('client'));
+        $info = $request->except('client');
+        $info['kids'] = (int)$info['kids'];
+        $info['kidsAfter7'] = (int)$info['kidsAfter7'];
+        $info['adults'] = (int)$info['adults'];
+        $appt->fill($info);
         if ($appt->save()) {
 
             return response()->json(

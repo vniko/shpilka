@@ -56,5 +56,7 @@ class Client extends CrudModel
         }
 
         return $client;
-    }
+    }//
+
+
 }
