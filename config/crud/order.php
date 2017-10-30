@@ -40,6 +40,7 @@
             "field" => "order_id",
             "title" => "позиция",
             "model" => "order_line",
+            "on_delete" => "delete",
         ],
     ]
 ];

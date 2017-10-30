@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Skvn\Crud\Models\CrudModel;
 
 class OrderLine extends CrudModel
 {
+    use SoftDeletes;
+
     protected $guarded = [
         'id',
     ];
