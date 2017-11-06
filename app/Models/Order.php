@@ -54,4 +54,22 @@ class Order extends CrudModel
         return $query;
 
     }
+
+    public function scopeFilterByStartDate($query, $date)
+    {
+        if (!empty($date)) {
+            $query->whereDate('created_at', '>=', Carbon::parse($date));
+        }
+        return $query;
+
+    }
+
+    public function scopeFilterByEndDate($query, $date)
+    {
+        if (!empty($date)) {
+            $query->whereDate('created_at', '<=', Carbon::parse($date));
+        }
+        return $query;
+
+    }
 }
