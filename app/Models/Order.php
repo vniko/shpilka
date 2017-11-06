@@ -11,6 +11,8 @@ class Order extends CrudModel
 {
     use SoftDeletes, Filterable;
 
+    const NO_CLIENT = -1;
+
     public $timestamps  = true;
     protected $guarded = [
         'id',
@@ -23,8 +25,12 @@ class Order extends CrudModel
         $order = new Order();
         $order->total = $payload['total'];
         $order->total_discount = $payload['total_discount'];
-        $client = Client::createByData($payload['clientInfo']);
-        $order->client_id = $client->id;
+        if (!empty($payload['clientInfo']['id']) && (int)$payload['clientInfo']['id'] === self::NO_CLIENT) {
+            $order->client_id = self::NO_CLIENT;
+        } else {
+            $client = Client::createByData($payload['clientInfo']);
+            $order->client_id = $client->id;
+        }
         $order->seller_id = \Auth::user()->id;
         if ($order->save()) {
             foreach ($payload['lines'] as $line) {

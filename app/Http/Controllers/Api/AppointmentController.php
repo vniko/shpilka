@@ -131,9 +131,11 @@ class AppointmentController extends Controller
             $client->save();
         }
         $info = $request->except('client');
-        $info['kids'] = (int)$info['kids'];
-        $info['kidsAfter7'] = (int)$info['kidsAfter7'];
-        $info['adults'] = (int)$info['adults'];
+        if (isset($info['kids'])) {
+            $info['kids'] = (int)$info['kids'];
+            $info['kidsAfter7'] = (int)$info['kidsAfter7'];
+            $info['adults'] = (int)$info['adults'];
+        }
         $appt->fill($info);
         if ($appt->save()) {
 
