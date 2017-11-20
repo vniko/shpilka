@@ -13,7 +13,7 @@ class ClientTransformer extends TransformerAbstract
     public function transform(Client $client)
     {
         $clientArr = $client->toArray();
-        $clientArr['created_at']  = $client->created_at->format('d.m.Y');
+        $clientArr['created_at']  = $client->created_at ? $client->created_at->format('d.m.Y'): 'н/д';
         $clientArr['num_apps'] = $client->appointments()->count();
         $clientArr['num_orders'] = $client->orders()->count();
         return $clientArr;
