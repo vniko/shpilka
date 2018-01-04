@@ -13,6 +13,9 @@ class Order extends CrudModel
 
     const NO_CLIENT = -1;
 
+    const PMT_TYPE_CASH = 0;
+    const PMT_TYPE_CARD = 1;
+
     public $timestamps  = true;
     protected $guarded = [
         'id',
@@ -25,6 +28,7 @@ class Order extends CrudModel
         $order = new Order();
         $order->total = $payload['total'];
         $order->total_discount = $payload['total_discount'];
+        $order->payment_type_id = $payload['payment_type_id'];
         if (!empty($payload['clientInfo']['id']) && (int)$payload['clientInfo']['id'] === self::NO_CLIENT) {
             $order->client_id = self::NO_CLIENT;
         } else {

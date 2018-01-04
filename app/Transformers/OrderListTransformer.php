@@ -22,6 +22,7 @@ class OrderListTransformer extends TransformerAbstract
             'date' => $order->created_at?$order->created_at->format('d.m.Y H:i'):'',
             'total' => $order->total,
             'is_deleted' => $order->deleted_at ? true : false,
+            'payment_type_id' => $order->payment_type_id,
         ];
 
     }
